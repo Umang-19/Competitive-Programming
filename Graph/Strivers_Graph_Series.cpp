@@ -1,6 +1,9 @@
+// DFS Traversal
+// BFS Traversal
+// Detect Cycle in Undirected (DFS & BFS)
+
 #include<bits/stdc++.h>
 using namespace std;
-
 
 void print_adjls(vector<int> adjls[], int n , int m)
 {
@@ -97,7 +100,7 @@ int main()
     
     print_adjls(adjls, n , m);
     
-    // Breadth First Search
+    // Breadth First Search Traversal
     int ncomponents = 0;
     vector<bool> vis(n + 1, false);
 // 	queue<int> q;
@@ -128,7 +131,7 @@ int main()
 //     }
 //     cout << "\nTotal components = " << ncomponents << endl;
     
-    // Depth First Search
+    // Depth First Search Traversal
     // cout << "Depth First Search : ";
     // vector<int> dfsans;
     // for(int i = 1 ; i <= n ; i++)
@@ -155,6 +158,7 @@ int main()
     //     }
     // }
     
+    // Cycle Detection Using BFS
     for(int i = 1 ; i <= n ; i++)
     {
         if(!vis[i])

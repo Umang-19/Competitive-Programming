@@ -1,16 +1,16 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int IterativeBinarySearch(int A[], int n, int target)
+int IBS(vector<int> v, int n, int target)
 {
     int low = 0, high = n - 1, mid;
     while (low <= high)
     {
         mid = (low + high) / 2;
-        if (A[mid] == target)
+        if (v[mid] == target)
             return mid;
 
-        else if (target > A[mid])
+        else if (target > v[mid])
             low = mid + 1;
 
         else
@@ -19,7 +19,7 @@ int IterativeBinarySearch(int A[], int n, int target)
     return -1;
 }
 
-int RecursiveBinarySearch(int A[], int n, int target, int low, int high)
+int RBS(vector<int> A, int n, int target, int low, int high)
 {
     int mid = (low + high) / 2;
     if (A[mid] == target)
@@ -29,9 +29,9 @@ int RecursiveBinarySearch(int A[], int n, int target, int low, int high)
         return -1;
 
     if (target < A[mid])
-        return RecursiveBinarySearch(A, n, target, low, mid - 1);
+        return RBS(A, n, target, low, mid - 1);
     else
-        return RecursiveBinarySearch(A, n, target, mid + 1, high);
+        return RBS(A, n, target, mid + 1, high);
 }
 
 int main()
@@ -39,20 +39,24 @@ int main()
     int n, target;
     cout << "Enter n : ";
     cin >> n;
-    int A[n];
+    vector<int> v;
     cout << "Enter elements : ";
     for (int i = 0; i < n; i++)
-        cin >> A[i];
+    { 
+        int x;
+        cin >> x;
+        v.push_back(x);
+    }
 
     cout << "Enter target : ";
     cin >> target;
 
-    sort(A, A + n);
+    sort(v.begin(), v.end());
     cout << "Sorted Array : ";
     for (int i = 0; i < n; i++)
-        cout << A[i] << " ";
+        cout << v[i] << " ";
 
-    cout << "\nAns by Iterative Binary Search : " << IterativeBinarySearch(A, n, target) << endl;
-    cout << "\nAns by Recursive Binary Search : " << RecursiveBinarySearch(A, n, target, 0, n - 1) << endl;
+    cout << "\nAns by Iterative Binary Search : " << IBS(v, n, target) << endl;
+    cout << "\nAns by Recursive Binary Search : " << RBS(v, n, target, 0, n - 1) << endl;
     return 0;
 }

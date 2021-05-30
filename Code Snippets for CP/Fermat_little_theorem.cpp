@@ -1,3 +1,6 @@
+// FLT - For finding the modular multiplicative inverse of any no. say n
+// Modular multiplicative inverse: If (n * n^-1) % m = 1 then n^-1 is the modular mul inv.
+
 #include <bits/stdc++.h>
 using namespace std;
 

@@ -1,27 +1,30 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void printst(vector<int> st)
+int v[100001];
+int st[400004];
+
+void printst(int n)
 {
-    for(auto x : st)
-        cout << x << " ";
+    for(int i = 0 ; i < n ; i++)
+        cout << st[i] << " ";
      cout << endl;
 }
 
-int buildst(int l, int r, int i, vector<int> &st, vector<int> v)
+int buildst(int ss, int se, int si)
 {
-    if (l == r)
+    if (ss == se)
     {
-        st[i] = v[l];
-        return st[i];
+        st[si] = v[ss];
+        return st[si];
     }
 
-    int mid = (l + r) / 2;
-    st[i] = buildst(l, mid, 2 * i + 1, st, v) + buildst(mid + 1, r, 2 * i + 2, st, v);
-    return st[i];
+    int mid = (ss + se) / 2;
+    st[si] = buildst(ss, mid, 2 * si + 1) + buildst(mid + 1, se, 2 * si + 2);
+    return st[si];
 }
 
-int getsum(int qs, int qe, int ss, int se, int i, vector<int> st)
+int getsum(int qs, int qe, int ss, int se, int i)
 {
     if (qs > se || qe < ss)
         return 0;
@@ -31,11 +34,11 @@ int getsum(int qs, int qe, int ss, int se, int i, vector<int> st)
 
     int mid = (ss + se) / 2;
 
-    return getsum(qs, qe, ss, mid, 2 * i + 1, st) +
-           getsum(qs, qe, mid + 1, se, 2 * i + 2, st);
+    return getsum(qs, qe, ss, mid, 2 * i + 1) +
+           getsum(qs, qe, mid + 1, se, 2 * i + 2);
 }
 
-void updatest(int ss, int se, int idx, int si, int diff, vector<int>& st)
+void updatest(int ss, int se, int idx, int si, int diff)
 {
     if (idx < ss || idx > se)
         return;
@@ -45,35 +48,30 @@ void updatest(int ss, int se, int idx, int si, int diff, vector<int>& st)
     if (ss < se)
     {
         int mid = (ss + se) / 2;
-        updatest(ss, mid, idx, 2 * si + 1, diff, st);
-        updatest(mid + 1, se, idx, 2 * si + 2, diff, st);
+        updatest(ss, mid, idx, 2 * si + 1, diff);
+        updatest(mid + 1, se, idx, 2 * si + 2, diff);
     }
 }
 
 int main()
 {
-    vector<int> v;
     int n, x;
     cin >> n;
     for (int i = 0; i < n; i++)
-    {
-        cin >> x;
-        v.push_back(x);
-    }
+        cin >> v[i];
 
-    int size = 2 * pow(2, ceil(log(n))) - 1;
-    vector<int> st(size, -1);
-    int rootval = buildst(0, n - 1, 0, st, v);
+    
+    buildst(0, n - 1, 0);
 
-    cout << getsum(0, 2, 0, n - 1, 0, st) << endl;
-    cout << getsum(1, 3, 0, n - 1, 0, st) << endl;
-    cout << getsum(0, 3, 0, n - 1, 0, st) << endl;
+    cout << getsum(0, 2, 0, n - 1, 0) << endl;
+    cout << getsum(1, 3, 0, n - 1, 0) << endl;
+    cout << getsum(0, 3, 0, n - 1, 0) << endl;
 
     int idx, newval;
     cin >> idx >> newval;
     int diff = newval - v[idx];
-    updatest(0, n - 1, idx, 0, diff, st);
+    updatest(0, n - 1, idx, 0, diff);
  
-    cout << "newsum = " << getsum(0, 1, 0, n - 1, 0, st);
+    cout << "newsum = " << getsum(0, 1, 0, n - 1, 0);
     return 0;
 }

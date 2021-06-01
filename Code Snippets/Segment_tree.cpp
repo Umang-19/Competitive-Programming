@@ -24,18 +24,18 @@ int buildst(int ss, int se, int si)
     return st[si];
 }
 
-int getsum(int qs, int qe, int ss, int se, int i)
+int getsum(int qs, int qe, int ss, int se, int si)
 {
     if (qs > se || qe < ss)
         return 0;
 
     if (qs <= ss && qe >= se)
-        return st[i];
+        return st[si];
 
     int mid = (ss + se) / 2;
 
-    return getsum(qs, qe, ss, mid, 2 * i + 1) +
-           getsum(qs, qe, mid + 1, se, 2 * i + 2);
+    return getsum(qs, qe, ss, mid, 2 * si + 1) +
+           getsum(qs, qe, mid + 1, se, 2 * si + 2);
 }
 
 void updatest(int ss, int se, int idx, int si, int diff)

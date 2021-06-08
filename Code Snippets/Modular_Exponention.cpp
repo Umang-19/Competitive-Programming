@@ -18,6 +18,6 @@ long long int calculatepower(long long int A, long long int B)
 
 int main()
 {
-    cout << fastpower(2, 10);
+    cout << calculatepower(2, 10);
     return 0;
 }
